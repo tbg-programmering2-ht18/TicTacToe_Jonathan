@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Forms;
 
 namespace TicTacToe_Jonathan
 {
+
     public partial class Form1 : Form
     {
         bool someone_won = false;
@@ -39,6 +41,25 @@ namespace TicTacToe_Jonathan
            
             if (someone_won)
             {
+                String path = @"C:\Temp\";
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                String grFilename = path + "game_nr.txt";
+                if (!File.Exists(grFilename))
+                {
+                    FileStream f = File.Create(grFilename);
+                    f.Close();
+                    File.WriteAllText(grFilename, "0");
+                }
+
+                string gamecountstr = File.ReadAllText(grFilename);
+                int gamecount = int.Parse(gamecountstr);
+                gamecount++;
+
+                File.WriteAllText(grFilename, gamecount.ToString());
+
                 String symbol = "";
                 if (turn)
                     symbol = "O ";
@@ -71,8 +92,44 @@ namespace TicTacToe_Jonathan
             this.ActiveControl = reset;
             checkForWinner();
         }
-        
-        
-        
+
+        private void reset_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+            Environment.Exit(0);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.ShowDialog();
+
+        }
     }
+    
 }
+
+/*String path = @"C:\Temp\";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            String urFilename = path + "user_register.txt";
+            if (!File.Exists(urFilename))
+            {
+                FileStream f = File.Create(urFilename);
+f.Close();
+                userPasswdDict.Add("Jonis", "123");
+                userPasswdDict.Add("PV", "321");
+                userPasswdDict.Add("Adam", "rick");
+
+                string jsonuserPasswd = JsonConvert.SerializeObject(userPasswdDict, Formatting.Indented);
+File.WriteAllText(urFilename, jsonuserPasswd);
+            }
+            else
+            {
+                string json = File.ReadAllText(urFilename);
+userPasswdDict = JsonConvert.DeserializeObject<Dictionary<String, String>>(json);
+            }
+            */

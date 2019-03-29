@@ -38,6 +38,7 @@
             this.C2 = new System.Windows.Forms.Button();
             this.C3 = new System.Windows.Forms.Button();
             this.reset = new System.Windows.Forms.Button();
+            this.Scores = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // A1
@@ -133,19 +134,31 @@
             // reset
             // 
             this.reset.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reset.Location = new System.Drawing.Point(378, 31);
+            this.reset.Location = new System.Drawing.Point(358, 31);
             this.reset.Name = "reset";
-            this.reset.Size = new System.Drawing.Size(123, 53);
+            this.reset.Size = new System.Drawing.Size(143, 53);
             this.reset.TabIndex = 9;
             this.reset.Tag = "Reset";
             this.reset.Text = "Reset";
             this.reset.UseVisualStyleBackColor = true;
+            this.reset.Click += new System.EventHandler(this.reset_Click);
+            // 
+            // Scores
+            // 
+            this.Scores.Location = new System.Drawing.Point(67, 31);
+            this.Scores.Name = "Scores";
+            this.Scores.Size = new System.Drawing.Size(136, 53);
+            this.Scores.TabIndex = 10;
+            this.Scores.Text = "Scores";
+            this.Scores.UseVisualStyleBackColor = true;
+            this.Scores.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(565, 670);
+            this.Controls.Add(this.Scores);
             this.Controls.Add(this.reset);
             this.Controls.Add(this.C3);
             this.Controls.Add(this.C2);
@@ -175,6 +188,7 @@
         private System.Windows.Forms.Button C2;
         private System.Windows.Forms.Button C3;
         private System.Windows.Forms.Button reset;
+        private System.Windows.Forms.Button Scores;
     }
 }
 
