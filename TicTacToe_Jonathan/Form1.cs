@@ -17,7 +17,6 @@ namespace TicTacToe_Jonathan
     {
         bool someone_won = false;
         bool turn = true;
-        int turn_count = 0;
 
         public Form1()
         {
@@ -51,14 +50,8 @@ namespace TicTacToe_Jonathan
                 {
                     FileStream f = File.Create(grFilename);
                     f.Close();
-                    File.WriteAllText(grFilename, "0");
+
                 }
-
-                string gamecountstr = File.ReadAllText(grFilename);
-                int gamecount = int.Parse(gamecountstr);
-                gamecount++;
-
-                File.WriteAllText(grFilename, gamecount.ToString());
 
                 String symbol = "";
                 if (turn)
@@ -66,6 +59,14 @@ namespace TicTacToe_Jonathan
 
                 else
                     symbol = "X ";
+
+                string gamestat = File.ReadAllText(grFilename);
+                string[] arr = gamestat.Split('\n');
+                int rownr = arr.Length;
+                gamestat += "Game " + rownr.ToString() + ": " + symbol + Environment.NewLine;
+                File.WriteAllText(grFilename, gamestat);
+
+                
 
                 MessageBox.Show(symbol + "has won!");
 
@@ -101,8 +102,7 @@ namespace TicTacToe_Jonathan
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
-            form2.ShowDialog();
+            
 
         }
     }
