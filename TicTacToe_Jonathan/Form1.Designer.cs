@@ -149,6 +149,7 @@
             this.Scores.Name = "Scores";
             this.Scores.Size = new System.Drawing.Size(136, 53);
             this.Scores.TabIndex = 10;
+            this.Scores.Tag = "Reset";
             this.Scores.Text = "Scores";
             this.Scores.UseVisualStyleBackColor = true;
             this.Scores.Click += new System.EventHandler(this.button1_Click);

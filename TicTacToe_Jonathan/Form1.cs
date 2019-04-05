@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace TicTacToe_Jonathan
 {
@@ -16,7 +16,7 @@ namespace TicTacToe_Jonathan
     public partial class Form1 : Form
     {
         bool someone_won = false;
-        bool turn = true;
+        bool turn = true; // A value that will determine who's turn it was at the time of game end.
 
         public Form1()
         {
@@ -28,7 +28,7 @@ namespace TicTacToe_Jonathan
             this.ActiveControl = reset;
         }
 
-        private bool checkContent(Button A1, Button A2, Button A3)
+        private bool checkContent(Button A1, Button A2, Button A3) //checks for three of the same symbol in a row
         {
             return (A1.Text == A2.Text) && (A2.Text == A3.Text) && (!A1.Enabled);
         }
@@ -36,7 +36,7 @@ namespace TicTacToe_Jonathan
         private void checkForWinner()
         {
             if (checkContent(A1, A2, A3) || checkContent(B1, B2, B3) || checkContent(C1, C2, C3) || checkContent(A1, B1, C1) || checkContent(A2, B2, C2) || checkContent(A3, B3, C3) || checkContent(A1, B2, C3) || checkContent(A3, B2, C1))
-                someone_won = true;
+                someone_won = true; //all the ways someone can win. Probably not the best way tp write the code as it's repetative, but it works.
            
             if (someone_won)
             {
@@ -51,30 +51,32 @@ namespace TicTacToe_Jonathan
                     FileStream f = File.Create(grFilename);
                     f.Close();
 
-                }
+                } //If someone wins a file is created to store the scores.
 
                 String symbol = "";
                 if (turn)
                     symbol = "O ";
 
                 else
-                    symbol = "X ";
-
-                string gamestat = File.ReadAllText(grFilename);
-                string[] arr = gamestat.Split('\n');
-                int rownr = arr.Length;
-                gamestat += "Game " + rownr.ToString() + ": " + symbol + Environment.NewLine;
-                File.WriteAllText(grFilename, gamestat);
-
+                    symbol = "X "; // And the winner is set.
+                try
+                {
+                    string gamestat = File.ReadAllText(grFilename);
+                    string[] arr = gamestat.Split('\n');
+                    int rownr = arr.Length;
+                    gamestat += "Game " + rownr.ToString() + ": " + symbol + Environment.NewLine;
+                    File.WriteAllText(grFilename, gamestat);
+                }
+                catch {MessageBox.Show("File-related ERROR");}  //Will read the file and count how many lines are in it. And if the file is gone or something an alert will tell you.
                 
 
-                MessageBox.Show(symbol + "has won!");
+                MessageBox.Show(symbol + "has won!");  //Message to tell you that the game is over
 
                 foreach (Control x in this.Controls)
                 {
                     if (x is Button && x.Tag == null)
                     {
-                        x.Enabled = false;
+                        x.Enabled = false; //disables all the buttons without a tag.
                     }
                 }
             }
@@ -90,46 +92,22 @@ namespace TicTacToe_Jonathan
 
             turn = !turn;
             x.Enabled = false;
-            this.ActiveControl = reset;
+            this.ActiveControl = reset;  //disables controls after being pressed
             checkForWinner();
         }
 
         private void reset_Click(object sender, EventArgs e)
         {
             Application.Restart();
-            Environment.Exit(0);
+            Environment.Exit(0);  // A crude but functional way to reset the application.
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
 
+            Process.Start("C:\\Temp\\game_nr.txt");  //Opens the scoreboard.
         }
     }
     
 }
 
-/*String path = @"C:\Temp\";
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            String urFilename = path + "user_register.txt";
-            if (!File.Exists(urFilename))
-            {
-                FileStream f = File.Create(urFilename);
-f.Close();
-                userPasswdDict.Add("Jonis", "123");
-                userPasswdDict.Add("PV", "321");
-                userPasswdDict.Add("Adam", "rick");
-
-                string jsonuserPasswd = JsonConvert.SerializeObject(userPasswdDict, Formatting.Indented);
-File.WriteAllText(urFilename, jsonuserPasswd);
-            }
-            else
-            {
-                string json = File.ReadAllText(urFilename);
-userPasswdDict = JsonConvert.DeserializeObject<Dictionary<String, String>>(json);
-            }
-            */
