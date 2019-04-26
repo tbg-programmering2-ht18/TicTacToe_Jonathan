@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Took help from: https://www.youtube.com/watch?v=p3gYVcggQOU&t=1709s
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -111,3 +112,8 @@ namespace TicTacToe_Jonathan
     
 }
 
+//1. Press start
+//2. Press a square to place your symbol. 
+//3. Take turns with a friend for maximum effect.
+//4. Realise you don't have friends and seriously question the choice to play tic-tac-toe alone
+//5. Press score Button if you want to see which player (your right hand or left hand) won every game.
